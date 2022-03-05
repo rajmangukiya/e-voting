@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { Image } from 'react-bootstrap'
+import { Button, Image } from 'react-bootstrap'
 import styles from '../SASS/dashboard/dashboard.module.scss'
 import CurrentEle from './components/CurrentEle'
 import PastEle from './components/PastEle'
 import UpcomingEle from './components/UpcomingEle'
 
 const Dashboard = () => {
+
 
   const [selectedTab, setSelectedTab] = useState('Current');
 
@@ -14,9 +15,15 @@ const Dashboard = () => {
     <div className={styles.container} >
       <div className={styles.center_container}>
         <ui className={styles.nav_container}>
-          <li className={selectedTab === 'Current' ? styles.selected_tab : styles.nav_option} onClick={() => setSelectedTab('Current')}><p>Current Election</p></li>
-          <li className={selectedTab === 'Past' ? styles.selected_tab : styles.nav_option} onClick={() => setSelectedTab('Past')}><p>Past Election</p></li>
-          <li className={selectedTab === 'Upcoming' ? styles.selected_tab : styles.nav_option} onClick={() => setSelectedTab('Upcoming')}><p>Upcoming Election</p></li>
+          <li onClick={() => setSelectedTab('Current')}>
+            <h5 className={selectedTab === 'Current' ? styles.selected_tab : styles.nav_option}>Current Election</h5>
+          </li>
+          <li onClick={() => setSelectedTab('Past')}>
+            <h5 className={selectedTab === 'Past' ? styles.selected_tab : styles.nav_option}>Past Election</h5>
+          </li>
+          <li onClick={() => setSelectedTab('Upcoming')}>
+            <h5 className={selectedTab === 'Upcoming' ? styles.selected_tab : styles.nav_option}>Upcoming Election</h5>
+          </li>
         </ui>
         <div className={styles.pages_container}>
           {
@@ -25,11 +32,15 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className={styles.profile_container}>
-        <img className={styles.porifle_img} src="./images/auth.png" alt='user' />
-        <div className={styles.profile_details}>
-          <h3>Krunal Mungalpara</h3>
-        </div>
+      <div className={styles.profile_container}>         
+          <div className={styles.profile_details}>
+            <img className={styles.porifle_img} src="./images/auth.png" alt='user' />
+            <h3>Krunal Mungalpara</h3>
+            <p>x0 abc...hag</p>
+          </div>
+          <div>
+            <Button className={styles.logout_btn}>Logout</Button>
+          </div>
       </div>
 
     </div>
