@@ -23,7 +23,7 @@ const Signup = () => {
       console.log(data);
 
       if(data){
-        router.push('auth/');
+        router.push('/dashboard');
       }
     } catch (error) {
       

@@ -1,85 +1,76 @@
-import React, { useEffect, useState } from 'react'
-import { Button, Image } from 'react-bootstrap'
-import styles from '../SASS/dashboard/dashboard.module.scss'
+import React, { useState } from 'react'
+import router, { useRouter } from 'next/router'
+import styles from '../SASS/auth.module.scss'
+import { Button, Col, Container, Row } from 'react-bootstrap'
+import { ApiPostNoAuth } from '../utils/ApiData'
 import AuthStorage from '../utils/AuthStorage'
-import CurrentEle from './componetns/CurrentEle'
-import PastEle from './componetns/PastEle'
-import UpcomingEle from './componetns/UpcomingEle'
-import router from 'next/router'
 import { STORAGEKEY } from '../config'
 
-const Dashboard = () => {
 
-  const [selectedTab, setSelectedTab] = useState('Current');
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const logout = () => {
-    AuthStorage.deauthenticateUser();
-    router.push('/auth')
-  }
-
-  const verify_token = async () => {
+  const signInVoter = async () => {
     try {
+      // console.log("data", { email, password });
 
-      if (AuthStorage.isUserAuthenticated()) {
-        const { data }  = await ApiGet('/voter/authenticate');
+      const { data } = await ApiPostNoAuth('voter/signIn', {
+        email,
+        password
+      });
 
-        if(data){
-          AuthStorage.setStorageData(STORAGEKEY.token, data.token, true);
-        }
-      }else {
-        AuthStorage.deauthenticateUser()
-        router.push('/auth')
+      // dispatch(setUserData(resData.data));
+      // dispatch(toggleLoading(false));
+
+      if (data) {
+        AuthStorage.setStorageData(STORAGEKEY.token, data.token, true);
+        // dispatch(setUserData(data))
+        router.push('/dashboard')
       }
     } catch (error) {
       console.error(error);
-      AuthStorage.deauthenticateUser();
-      router.push('/auth');
     }
-
   }
 
-  useEffect(() => {
-    console.log(router)
-    if(router.pathname !== '/auth' || router.pathname !== '/signup' ){
-      verify_token(); 
-    }
-  }, [])
-  
-
   return (
-    <div className={styles.container} >
-      <div className={styles.center_container}>
-        <ui className={styles.nav_container}>
-          <li onClick={() => setSelectedTab('Current')}>
-            <h5 className={selectedTab === 'Current' ? styles.selected_tab : styles.nav_option}>Current Election</h5>
-          </li>
-          <li onClick={() => setSelectedTab('Past')}>
-            <h5 className={selectedTab === 'Past' ? styles.selected_tab : styles.nav_option}>Past Election</h5>
-          </li>
-          <li onClick={() => setSelectedTab('Upcoming')}>
-            <h5 className={selectedTab === 'Upcoming' ? styles.selected_tab : styles.nav_option}>Upcoming Election</h5>
-          </li>
-        </ui>
-        <div className={styles.pages_container}>
-          {
-            selectedTab === 'Current' ? <CurrentEle /> : selectedTab === 'Past' ? <PastEle /> : <UpcomingEle />
-          }
-        </div>
-      </div>
+    <div className={styles.container}>
+      <div className={styles.blur}>
+        <Container className={styles.center_modal}>
+          <Row>
+            <Col className={styles.img_container}>
+              <img src='./images/auth.png' alt='background' />
+            </Col>
+            <Col className={styles.form}>
+              <div className='w-100 d-flex flex-column justify-contant-center align-items-center'>
+                <div className='w-75'>
+                  <h2>Login</h2>
 
-      <div className={styles.profile_container}>         
-          <div className={styles.profile_details}>
-            <img className={styles.porifle_img} src="./images/auth.png" alt='user' />
-            <h3>Krunal Mungalpara</h3>
-            <p>x0 abc...hag</p>
-          </div>
-          <div>
-            <Button onClick={logout} className={styles.logout_btn}>Logout</Button>
-          </div>
-      </div>
+                  <div>
+                    <div className={styles.input_group}>
+                      <p className={styles.input_lable}>Email</p>
+                      <input type='email' placeholder='Enter email' className={styles.input_field} onChange={e => setEmail(e.target.value)} />
+                    </div>
 
-    </div>
+                    <div className={styles.input_group}>
+                      <p className={styles.input_lable}>Password</p>
+                      <input type='password' placeholder='Enter password' className={styles.input_field} onChange={e => setPassword(e.target.value)} />
+                    </div>
+                  </div>
+                </div>
+
+                <div className='w-75'>
+                  <Button className={styles.login_btn} onClick={signInVoter} >Login</Button>
+
+                  <p onClick={() => router.push('/signup')} className={styles.create_acc_txt}>Don't have an account? <span>Signup</span></p>
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    </div >
   )
 }
 
-export default Dashboard
+export default Login
