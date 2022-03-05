@@ -10,9 +10,9 @@ const PastEle = () => {
     <div className={styles.current_ele}>
 
       {a.map(i => (
-        <div className={styles.party_card}>
+        <div className={styles.past_party_card}>
           <div className={styles.blur}>
-            <h1>10</h1>
+            <p>10</p>
 
             <h4>Krunal</h4>
           </div>
