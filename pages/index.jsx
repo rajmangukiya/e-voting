@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Image } from 'react-bootstrap'
 import styles from '../SASS/dashboard/dashboard.module.scss'
+import { ApiGet } from '../utils/ApiData'
 import CurrentEle from './components/CurrentEle'
 import PastEle from './components/PastEle'
 import UpcomingEle from './components/UpcomingEle'
@@ -9,6 +10,23 @@ const Dashboard = () => {
 
 
   const [selectedTab, setSelectedTab] = useState('Current');
+  const [userData, setUserData] = useState();
+
+  const getUserData = async () => {
+    try {
+      const { data } = await ApiGet('voter/authenticate')
+      if (data) {
+        setUserData(data)
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getUserData()
+  }, [])
+
 
 
   return (
@@ -27,20 +45,20 @@ const Dashboard = () => {
         </ui>
         <div className={styles.pages_container}>
           {
-            selectedTab === 'Current' ? <CurrentEle /> : selectedTab === 'Past' ? <PastEle /> : <UpcomingEle />
+            selectedTab === 'Current' ? <CurrentEle userData={userData} /> : selectedTab === 'Past' ? <PastEle /> : <UpcomingEle />
           }
         </div>
       </div>
 
-      <div className={styles.profile_container}>         
-          <div className={styles.profile_details}>
-            <img className={styles.porifle_img} src="./images/auth.png" alt='user' />
-            <h3>Krunal Mungalpara</h3>
-            <p>x0 abc...hag</p>
-          </div>
-          <div>
-            <Button className={styles.logout_btn}>Logout</Button>
-          </div>
+      <div className={styles.profile_container}>
+        <div className={styles.profile_details}>
+          <img className={styles.porifle_img} src="./images/auth.png" alt='user' />
+          <h3>{userData?.fullName}</h3>
+          <p>x0 abc...hag</p>
+        </div>
+        <div>
+          <Button className={styles.logout_btn}>Logout</Button>
+        </div>
       </div>
 
     </div>
