@@ -1,10 +1,30 @@
-import React from 'react'
+import React, {useState} from 'react'
 import router, { useRouter } from 'next/router'
 import styles from '../../SASS/auth.module.scss'
 import { Button, Col, Container, Row } from 'react-bootstrap'
+import { ApiPostNoAuth } from '../../utils/ApiData'
 
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
+  const signInVoter = async () => {
+    try {
+      console.log("data", {email, password});
+
+      const {data} = await ApiPostNoAuth('voter/signIn', {
+        email,
+        password
+      });
+      console.log("data", data);
+
+      if(data) {
+        router.push('/')
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -22,18 +42,18 @@ const Login = () => {
                   <div>
                     <div className={styles.input_group}>
                       <p className={styles.input_lable}>Email</p>
-                      <input type='email' placeholder='Enter email' className={styles.input_field} />
+                      <input type='email' placeholder='Enter email' className={styles.input_field} onChange={e => setEmail(e.target.value)} />
                     </div>
 
                     <div className={styles.input_group}>
                       <p className={styles.input_lable}>Password</p>
-                      <input type='password' placeholder='Enter password' className={styles.input_field} />
+                      <input type='password' placeholder='Enter password' className={styles.input_field} onChange={e => setPassword(e.target.value)} />
                     </div>
                   </div>
                 </div>
 
                 <div className='w-75'>
-                  <Button className={styles.login_btn} >Login</Button>
+                  <Button className={styles.login_btn} onClick={signInVoter} >Login</Button>
 
                   <p onClick={() => router.push('/signup')} className={styles.create_acc_txt}>Don't have an account? <span>Signup</span></p>
                 </div>

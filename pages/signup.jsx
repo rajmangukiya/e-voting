@@ -1,10 +1,35 @@
-import React from 'react'
+import React, {useState} from 'react'
 import router, { useRouter } from 'next/router'
 import styles from '../SASS/signup.module.scss'
 import { Button, Col, Container, Row } from 'react-bootstrap'
+import { ApiPost, ApiPostNoAuth } from '../utils/ApiData'
 
 const Signup = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState('');
+  const [gender, setGender] = useState('MALE');
+  const [dob, setDob] = useState(new Date());
 
+  const signUpUser = async () => {
+    try {
+      const {data} = await ApiPostNoAuth('voter/signUp', {
+        email,
+        password,
+        fullName,
+        gender,
+        dob
+      })
+      console.log(data);
+
+      if(data){
+        router.push('auth/');
+      }
+    } catch (error) {
+      
+    }
+  }
+  
   return (
     <div className={styles.container}>
       <div className={styles.blur}>
@@ -21,22 +46,22 @@ const Signup = () => {
                   <div>
                     <div className={styles.input_group}>
                       <p className={styles.input_lable}>Full Name</p>
-                      <input type='text' placeholder='Enter fullname' className={styles.input_field} />
+                      <input type='text' placeholder='Enter fullname' className={styles.input_field} onChange={e => setFullName(e.target.value)} />
                     </div>
 
                     <div className={styles.input_group}>
                       <p className={styles.input_lable}>Date of birth</p>
-                      <input type='date' placeholder='DOB' className={styles.input_field} />
+                      <input type='date' placeholder='DOB' value={dob} className={styles.input_field} onChange={e => setDob(e.target.value)} />
                     </div>
 
                     <div className={styles.input_group}>
                       <p className={styles.input_lable}>Email</p>
-                      <input type='email' placeholder='Enter email' className={styles.input_field} />
+                      <input type='email' placeholder='Enter email' className={styles.input_field} onChange={e => setEmail(e.target.value)} />
                     </div>
 
                     <div className={styles.input_group}>
                       <p className={styles.input_lable}>Password</p>
-                      <input type='password' placeholder='Enter password' className={styles.input_field} />
+                      <input type='password' placeholder='Enter password' className={styles.input_field} onChange={e => setPassword(e.target.value)} />
                     </div>
 
                     <div className={styles.radio_box}>
@@ -50,6 +75,7 @@ const Signup = () => {
                           type="radio"
                           name="gender"
                           value="MALE"
+                          onChange={e => setGender(e.target.value)}
                         />
                         <p className={styles.input_label}>Male</p>
                       </div>
@@ -60,6 +86,7 @@ const Signup = () => {
                           type="radio"
                           name="gender"
                           value="FEMALE"
+                          onChange={e => setGender(e.target.value)}
                         />
                         <p className={styles.input_label}>Female</p>
                       </div>
@@ -70,6 +97,7 @@ const Signup = () => {
                           type="radio"
                           name="gender"
                           value="OTHER"
+                          onChange={e => setGender(e.target.value)}
                         />
                         <p className={styles.input_label}>Other</p>
                       </div>
@@ -79,7 +107,7 @@ const Signup = () => {
                 </div>
 
                 <div className='w-75'>
-                  <Button className={styles.login_btn} >Sign Up</Button>
+                  <Button className={styles.login_btn} onClick={signUpUser} >Sign Up</Button>
 
                   <p onClick={() => router.push('/auth')} className={styles.create_acc_txt}>Already have an account? <span>Login</span></p>
                 </div>
