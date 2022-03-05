@@ -87,11 +87,24 @@
   width: 180px;
 }
 
-.container .center_container .nav_container .selected_tab {
+.container .center_container .nav_container .nav_option li a {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 22px;
+  padding: 20px 30px;
+  color: #1b1c1e;
+}
+
+.container .center_container .nav_container .nav_option p {
+  margin-bottom: 0;
+}
+
+.container .center_container .nav_container .nav_option .selected_tab {
+  color: #009dde;
   cursor: pointer;
 }
 
-.container .center_container .nav_container .selected_tab p::after {
+.container .center_container .nav_container .nav_option .selected_tab::after {
   position: absolute;
   width: 10%;
   height: 2px;

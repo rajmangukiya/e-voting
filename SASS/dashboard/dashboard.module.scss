@@ -54,14 +54,25 @@
                     cursor: pointer;
                     text-align: center;
                     width: 180px;
-                }
-            }
 
-            .selected_tab {
-                cursor: pointer;
+                    a {
+                        font-style: normal;
+                        font-weight: 300;
+                        font-size: 22px;
+                        padding: 20px 30px;
+                        color: #1b1c1e;
+                    }
+                }
 
                 p {
+                    margin-bottom: 0;
+                }
 
+
+                .selected_tab {
+  color: #009dde;
+
+                    cursor: pointer;
 
                     &::after {
                         position: absolute;
@@ -74,6 +85,8 @@
                     }
                 }
             }
+
+
         }
 
         .pages_container {
