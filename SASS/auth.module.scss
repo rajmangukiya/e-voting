@@ -1,0 +1,89 @@
+@import './colors.scss';
+
+.container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    .img_container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #5c98e6;
+        border-radius: 30px 0 0 30px;
+
+        img {
+            width: 100%;
+            height: 85%;
+        }
+    }
+
+
+    .center_modal {
+        display: flex;
+        justify-content: center;
+        // align-items: center;
+        height: 70%;
+        width: 1100px;
+        border-radius: 30px;
+        box-shadow: 0px 0px 18px -5px rgba(0,0,0,0.75);
+
+        h2 {
+
+            text-align: center;
+        }
+
+
+        .form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+
+
+    .input_group {
+        margin: 20px 0;
+
+        .input_lable {
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .input_field {
+            width: 100%;
+            padding: 5px;
+            outline: none;
+            border: 1px solid black;
+        }
+    }
+
+    .login_btn {
+        width: 100%;
+        margin-top: 10px;
+        border-radius: 0px;
+        background-color: $primary;
+        border: none;
+
+        &:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+    }
+
+    .create_acc_txt{
+        text-align: center;
+        margin-top: 5px;
+        font-size: 14px;
+
+        span {
+            font-weight: 600;
+            cursor: pointer;
+            color: $primary;
+        }
+    }
+}
