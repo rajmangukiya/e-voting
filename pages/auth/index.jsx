@@ -1,8 +1,10 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import router, { useRouter } from 'next/router'
 import styles from '../../SASS/auth.module.scss'
 import { Button, Col, Container, Row } from 'react-bootstrap'
 import { ApiPostNoAuth } from '../../utils/ApiData'
+import AuthStorage from '../../utils/AuthStorage'
+import { STORAGEKEY } from '../../config'
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -10,15 +12,18 @@ const Login = () => {
 
   const signInVoter = async () => {
     try {
-      console.log("data", {email, password});
+      // console.log("data", { email, password });
 
-      const {data} = await ApiPostNoAuth('voter/signIn', {
+      const { data } = await ApiPostNoAuth('voter/signIn', {
         email,
         password
       });
-      console.log("data", data);
 
-      if(data) {
+      // dispatch(setUserData(resData.data));
+      // dispatch(toggleLoading(false));
+
+      if (data) {
+        AuthStorage.setStorageData(STORAGEKEY.token, data.token, true);
         router.push('/')
       }
     } catch (error) {

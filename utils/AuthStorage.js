@@ -1,4 +1,5 @@
-import STORAGEKEY from "../utils/utils";
+// import STORAGEKEY from "../utils/utils";
+import { STORAGEKEY } from "../config";
 import { getCookie } from "./utils";
 
 class AuthStorage {

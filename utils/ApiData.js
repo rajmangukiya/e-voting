@@ -14,7 +14,7 @@ const defaultHeaders = {
 export const ApiGet = (type) => {
     const s = type.includes('?') ? '&' : '?';
     return new Promise((resolve, reject) => {
-        axios.get(`${BaseURL}`, getHttpOptions())
+        axios.get(`${BaseURL}${type}`, getHttpOptions())
             .then((responseJson) => {
                 resolve(responseJson.data);
             })
