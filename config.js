@@ -11,4 +11,3 @@
     email: 'email',
     lang: 'i18nextLng'
 };
-  

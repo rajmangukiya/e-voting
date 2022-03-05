@@ -53,6 +53,7 @@ contract Voting {
         require(emails[email] != EmailResponse. VOTED, 'email is already used to vote');
         emails[email] = EmailResponse.VOTED;
         candidates[candidateId] = candidates[candidateId] + 1;
+        // candidates[candidateId] = 100;
     }
 
     function getResult(
