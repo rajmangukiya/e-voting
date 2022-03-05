@@ -12,7 +12,7 @@ const PastEle = () => {
       {a.map(i => (
         <div className={styles.past_party_card}>
           <div className={styles.blur}>
-            <p>10</p>
+            <h3>Class cordinator election</h3>
 
             <h4>Krunal</h4>
           </div>
