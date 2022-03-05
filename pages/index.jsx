@@ -1,15 +1,50 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Image } from 'react-bootstrap'
 import styles from '../SASS/dashboard/dashboard.module.scss'
-import CurrentEle from './components/CurrentEle'
-import PastEle from './components/PastEle'
-import UpcomingEle from './components/UpcomingEle'
+import AuthStorage from '../utils/AuthStorage'
+import CurrentEle from './componetns/CurrentEle'
+import PastEle from './componetns/PastEle'
+import UpcomingEle from './componetns/UpcomingEle'
+import router from 'next/router'
+import { STORAGEKEY } from '../config'
 
 const Dashboard = () => {
 
-
   const [selectedTab, setSelectedTab] = useState('Current');
 
+  const logout = () => {
+    AuthStorage.deauthenticateUser();
+    router.push('/auth')
+  }
+
+  const verify_token = async () => {
+    try {
+
+      if (AuthStorage.isUserAuthenticated()) {
+        const { data }  = await ApiGet('/voter/authenticate');
+
+        if(data){
+          AuthStorage.setStorageData(STORAGEKEY.token, data.token, true);
+        }
+      }else {
+        AuthStorage.deauthenticateUser()
+        router.push('/auth')
+      }
+    } catch (error) {
+      console.error(error);
+      AuthStorage.deauthenticateUser();
+      router.push('/auth');
+    }
+
+  }
+
+  useEffect(() => {
+    console.log(router)
+    if(router.pathname !== '/auth' || router.pathname !== '/signup' ){
+      verify_token(); 
+    }
+  }, [])
+  
 
   return (
     <div className={styles.container} >
@@ -39,7 +74,7 @@ const Dashboard = () => {
             <p>x0 abc...hag</p>
           </div>
           <div>
-            <Button className={styles.logout_btn}>Logout</Button>
+            <Button onClick={logout} className={styles.logout_btn}>Logout</Button>
           </div>
       </div>
 
