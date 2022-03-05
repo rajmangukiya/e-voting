@@ -1,0 +1,119 @@
+.container {
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.container .profile_container {
+  -webkit-box-flex: 0.3;
+      -ms-flex: 0.3;
+          flex: 0.3;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.container .profile_container .porifle_img {
+  height: 100px !important;
+  width: 100px;
+  border-radius: 99px;
+}
+
+.container .profile_container .profile_details {
+  margin-top: 10px;
+}
+
+.container .center_container {
+  -webkit-box-flex: 0.7;
+      -ms-flex: 0.7;
+          flex: 0.7;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.container .center_container .nav_container {
+  -webkit-box-flex: 0.1;
+      -ms-flex: 0.1;
+          flex: 0.1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.container .center_container .nav_container .nav_option {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  border-bottom: 1px solid #dfdfdf;
+  padding-bottom: 27px;
+  padding-left: 0;
+  white-space: nowrap;
+  margin-bottom: 40px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.container .center_container .nav_container .nav_option li {
+  list-style: none;
+  cursor: pointer;
+  text-align: center;
+  width: 180px;
+}
+
+.container .center_container .nav_container .selected_tab {
+  cursor: pointer;
+}
+
+.container .center_container .nav_container .selected_tab p::after {
+  position: absolute;
+  width: 10%;
+  height: 2px;
+  top: 53px;
+  background-color: #009dde;
+  display: block;
+  content: "";
+}
+
+.container .center_container .pages_container {
+  -webkit-box-flex: 0.9;
+      -ms-flex: 0.9;
+          flex: 0.9;
+  padding: 0 20px 20px 20px;
+}
+
+/*-----Current-------*/
+.current_ele {
+  height: 100%;
+  border-radius: 20px;
+  border: 1px solid black;
+}
+
+/*-------------------*/
+/*# sourceMappingURL=dashboard.module.css.map */
