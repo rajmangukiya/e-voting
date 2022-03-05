@@ -17,6 +17,23 @@ const Dashboard = () => {
     router.push('/')
   }
 
+const [userData, setUserData] = useState();
+
+  const getUserData = async () => {
+    try {
+      const { data } = await ApiGet('voter/authenticate')
+      if (data) {
+        setUserData(data)
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    getUserData()
+  }, [])
+
   
 
   return (
@@ -35,7 +52,7 @@ const Dashboard = () => {
         </ui>
         <div className={styles.pages_container}>
           {
-            selectedTab === 'Current' ? <CurrentEle /> : selectedTab === 'Past' ? <PastEle /> : <UpcomingEle />
+            selectedTab === 'Current' ? <CurrentEle userData={userData} /> : selectedTab === 'Past' ? <PastEle /> : <UpcomingEle />
           }
         </div>
       </div>
@@ -43,7 +60,7 @@ const Dashboard = () => {
       <div className={styles.profile_container}>         
           <div className={styles.profile_details}>
             <img className={styles.porifle_img} src="./images/auth.png" alt='user' />
-            <h3>Krunal Mungalpara</h3>
+            <h3>{userData.fullName}</h3>
             <p>x0 abc...hag</p>
           </div>
           <div>
