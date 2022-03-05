@@ -85,10 +85,6 @@
             }
 
 
-
-
-
-
         }
 
         .pages_container {
@@ -107,7 +103,7 @@
     justify-content: center;
     align-items: center;
     height: 100%;
-    padding: 20px 0;
+    padding: 15px 0;
     border-radius: 20px;
     flex-wrap: wrap;
     overflow-y: scroll;
@@ -179,9 +175,9 @@
         backdrop-filter: blur(5px);
     }
 
-    p {
-        margin-bottom: 0;
-        font-size: 60px !important;
+    h3 {
+        text-align: center;
+        margin-bottom: 30px;
     }
 
     .vote_btn {
