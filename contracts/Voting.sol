@@ -49,16 +49,18 @@ contract Voting {
         string memory email,
         uint256 candidateId
     ) public {
-        require(emails[email] != EmailResponse.NOTAVAILABLE, 'email should be valid to vote');
-        require(emails[email] != EmailResponse. VOTED, 'email is already used to vote');
+        // require(emails[email] != EmailResponse.NOTAVAILABLE, 'email should be valid to vote');
+        require(emails[email] != EmailResponse.VOTED, 'email is already used to vote');
         emails[email] = EmailResponse.VOTED;
         candidates[candidateId] = candidates[candidateId] + 1;
+        console.log(candidateId, candidates[candidateId]);
         // candidates[candidateId] = 100;
     }
 
     function getResult(
         uint256 candidateId
     ) public view returns(uint256) {
+        console.log(candidateId, candidates[candidateId]);
         return candidates[candidateId];
     }
 

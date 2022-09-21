@@ -7,17 +7,19 @@ import PastEle from './componetns/PastEle'
 import UpcomingEle from './componetns/UpcomingEle'
 import router from 'next/router'
 import { STORAGEKEY } from '../config'
+import { ApiGet } from '../utils/ApiData'
 
 const Dashboard = () => {
 
   const [selectedTab, setSelectedTab] = useState('Current');
+  const [currentAccount, setCurrentAccount] = useState('0x00000000000000000000000000000000');
 
   const logout = () => {
     AuthStorage.deauthenticateUser();
     router.push('/')
   }
 
-const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState({});
 
   const getUserData = async () => {
     try {
@@ -30,11 +32,13 @@ const [userData, setUserData] = useState();
     }
   }
 
-  useEffect(() => {
+  useEffect(async () => {
     getUserData()
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    setCurrentAccount(accounts[0])
   }, [])
 
-  
+
 
   return (
     <div className={styles.container} >
@@ -57,15 +61,15 @@ const [userData, setUserData] = useState();
         </div>
       </div>
 
-      <div className={styles.profile_container}>         
-          <div className={styles.profile_details}>
-            <img className={styles.porifle_img} src="./images/auth.png" alt='user' />
-            <h3>{userData.fullName}</h3>
-            <p>x0 abc...hag</p>
-          </div>
-          <div>
-            <Button onClick={logout} className={styles.logout_btn}>Logout</Button>
-          </div>
+      <div className={styles.profile_container}>
+        <div className={styles.profile_details}>
+          <img className={styles.porifle_img} src="./images/auth.png" alt='user' />
+          <h3>{userData.fullName}</h3>
+          <p>{currentAccount.slice(0, 8)} . . .</p>
+        </div>
+        <div>
+          <Button onClick={logout} className={styles.logout_btn}>Logout</Button>
+        </div>
       </div>
 
     </div>

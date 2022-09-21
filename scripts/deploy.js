@@ -25,7 +25,11 @@ async function main() {
     ],
     2
   )
-  console.log("voting deployed to:", voting.address);
+  // await voting.voteCandidate('19ce001@charusat.edu.in', '0');
+  // await voting.voteCandidate('19ce002@charusat.edu.in', '0');
+  // const result = await voting.getResult('0')
+  // console.log('result', result);
+  // console.log("voting deployed to:", voting.address);
 
   let config = `
   export const votingAddress = "${voting.address}"
