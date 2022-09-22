@@ -28,6 +28,10 @@ const CurrentEle = ({ userData }) => {
       if (data) {
         setElectionData(data[0])
         const _candidates = await ApiGet(`candidate/get?electionId=${data[0]._id}`)
+        if (_candidates) {
+          console.log(_candidates);
+          setCandidates(_candidates.data)
+        }
 
         web3Modal = new Web3Modal()
         connection = await web3Modal.connect()
@@ -44,9 +48,6 @@ const CurrentEle = ({ userData }) => {
           resultStorage.set(candidate.regNo, parseInt(resutlTransaction._hex))
           setResultStorageState(resultStorage)
         })
-        if (_candidates) {
-          setCandidates(_candidates.data)
-        }
       }
     } catch (error) {
       console.error(error);
@@ -77,6 +78,7 @@ const CurrentEle = ({ userData }) => {
   useEffect(() => {
     getElection();
   }, [])
+  
 
   return (
     <>

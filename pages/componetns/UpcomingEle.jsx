@@ -9,7 +9,7 @@ const UpcomingEle = () => {
 
   const getElection = async () => {
     try {
-      const { data } = await ApiGet('election/getElections?filter=PAST')
+      const { data } = await ApiGet('election/getElections?filter=UPCOMING')
       if (data) {
         setElectionData(data)
       }
